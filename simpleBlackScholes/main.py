@@ -1,5 +1,5 @@
 from numpy import exp, round
-from scipy.stats import norm
+# from scipy.stats import norm
 
 from .utils import dOne, dTwo
 
@@ -20,14 +20,14 @@ def europeanCall(
         riskFreeRate,
         volatility
     )
-    tOne = stockPrice * norm.cdf(dOneVar)
+    tOne = stockPrice * dOneVar
     dTwoVar = dTwo(
         dOneVar,
         expiration,
         volatility
     )
     fvDiscount = exp(-riskFreeRate * expiration)
-    tTwo = strikePrice * fvDiscount * (norm.cdf(dTwoVar))
+    tTwo = strikePrice * fvDiscount * dTwoVar
 
     output = (tOne - tTwo)
 
@@ -49,7 +49,7 @@ def europeanPut(
         riskFreeRate,
         volatility
     )
-    tOne = stockPrice * norm.cdf((-1 * dOneVar))
+    tOne = stockPrice * (-1 * dOneVar)
 
 
     dTwoVar = dTwo(
@@ -58,7 +58,7 @@ def europeanPut(
         volatility
     )
     fvDiscount = exp(-riskFreeRate * expiration)
-    tTwo = strikePrice * fvDiscount * (norm.cdf((-1 * dTwoVar)))
+    tTwo = strikePrice * fvDiscount * (-1 * dTwoVar)
 
     output = (tTwo - tOne)
 
