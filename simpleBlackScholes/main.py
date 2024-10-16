@@ -1,4 +1,4 @@
-import numpy as np
+from numpy import exp, round
 from scipy.stats import norm
 
 from .utils import dOne, dTwo
@@ -26,12 +26,12 @@ def europeanCall(
         expiration,
         volatility
     )
-    fvDiscount = np.exp(-riskFreeRate * expiration)
+    fvDiscount = exp(-riskFreeRate * expiration)
     tTwo = strikePrice * fvDiscount * (norm.cdf(dTwoVar))
 
     output = (tOne - tTwo)
 
-    return np.round(output, decimals=4) if roundOutput else output
+    return round(output, decimals=4) if roundOutput else output
 
 
 def europeanPut(
@@ -57,9 +57,9 @@ def europeanPut(
         expiration,
         volatility
     )
-    fvDiscount = np.exp(-riskFreeRate * expiration)
+    fvDiscount = exp(-riskFreeRate * expiration)
     tTwo = strikePrice * fvDiscount * (norm.cdf((-1 * dTwoVar)))
 
     output = (tTwo - tOne)
 
-    return np.round(output, decimals=4) if roundOutput else output
+    return round(output, decimals=4) if roundOutput else output

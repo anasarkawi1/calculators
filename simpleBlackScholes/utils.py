@@ -1,4 +1,4 @@
-import numpy as np
+from numpy import log, square, sqrt
 
 
 def dOne(
@@ -8,9 +8,9 @@ def dOne(
         riskFreeRate,
         volatility
 ):
-    ratio = np.log((stockPrice/strikePrice))
-    tTwo = expiration * (riskFreeRate + (np.square(volatility) / 2))
-    return (ratio + tTwo) / (volatility * np.sqrt(expiration))
+    ratio = log((stockPrice/strikePrice))
+    tTwo = expiration * (riskFreeRate + (square(volatility) / 2))
+    return (ratio + tTwo) / (volatility * sqrt(expiration))
 
 def dTwo(dOneVar, expiration, volatility):
-    return dOneVar - (volatility * np.sqrt(expiration))
+    return dOneVar - (volatility * sqrt(expiration))
